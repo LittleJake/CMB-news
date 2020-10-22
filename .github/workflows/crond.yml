@@ -1,0 +1,46 @@
+name: Crond job for CMB
+
+on: 
+  release:
+    types: [published]
+  push:
+    tags:
+    - 'v*'
+  schedule:
+    - cron: '*/5 * * * *'
+  watch:
+    types: [started]
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        pip install requests
+        pip install redis
+    - name: Load config
+      env: 
+        REDIS_HOST: ${{ secrets.REDIS_HOST }} # 远程redis服务器
+        REDIS_PORT: ${{ secrets.REDIS_PORT }} # 远程redis端口
+        REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }} # 远程redis密码
+        WXPUSH_TOKEN: ${{ secrets.WXPUSH_TOKEN }} # WXPUSHER的token
+        SERVERCHAN_TOKEN: ${{ secrets.SERVERCHAN_TOKEN }} # SERVER酱token
+      run: | 
+        cp CMB.py CMB2.py
+        sed -i 's/{{REDIS_HOST}}/$REDIS_HOST/g' CMB2.py
+        sed -i 's/{{REDIS_PORT}}/$REDIS_PORT/g' CMB2.py
+        sed -i 's/{{REDIS_PASSWORD}}/$REDIS_PASSWORD/g' CMB2.py
+        sed -i 's/{{SERVERCHAN_TOKEN}}/$SERVERCHAN_TOKEN/g' CMB2.py
+        sed -i 's/{{WXPUSH_TOKEN}}/$WXPUSH_TOKEN/g' CMB2.py
+    - name: Run
+      run: |
+        python CMB2.py
+    - name: Clean
+      run: |
+        rm -f CMB2.py
