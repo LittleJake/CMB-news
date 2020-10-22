@@ -25,12 +25,12 @@ jobs:
         pip install requests
     - name: Load config
       env: 
-        WXPUSH_TOKEN: ${{ secrets.WXPUSH_TOKEN }} # WXPUSHER的token
+        WXPUSHER_TOKEN: ${{ secrets.WXPUSHER_TOKEN }} # WXPUSHER的token
         SERVERCHAN_TOKEN: ${{ secrets.SERVERCHAN_TOKEN }} # SERVER酱token
       run: | 
         cp CMB_without_redis.py CMB_without_redis2.py
         sed -i 's/{{SERVERCHAN_TOKEN}}/$SERVERCHAN_TOKEN/g' CMB_without_redis2.py
-        sed -i 's/{{WXPUSH_TOKEN}}/$WXPUSH_TOKEN/g' CMB_without_redis2.py
+        sed -i 's/{{WXPUSHER_TOKEN}}/$WXPUSHER_TOKEN/g' CMB_without_redis2.py
     - name: Run
       run: |
         python CMB_without_redis2.py
