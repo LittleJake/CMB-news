@@ -32,7 +32,7 @@ def get_id():
 
 def set_json(data):
     re = redis.StrictRedis(connection_pool=pool,decode_responses=True)
-    return re.set('CMB_JSON', data)
+    return re.set('CMB_JSON', str(data))
 
 
 
