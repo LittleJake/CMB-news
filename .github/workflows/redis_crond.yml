@@ -29,7 +29,7 @@ jobs:
         REDIS_HOST: ${{ secrets.REDIS_HOST }} # 远程redis服务器
         REDIS_PORT: ${{ secrets.REDIS_PORT }} # 远程redis端口
         REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }} # 远程redis密码
-        WXPUSH_TOKEN: ${{ secrets.WXPUSH_TOKEN }} # WXPUSHER的token
+        WXPUSHER_TOKEN: ${{ secrets.WXPUSHER_TOKEN }} # WXPUSHER的token
         SERVERCHAN_TOKEN: ${{ secrets.SERVERCHAN_TOKEN }} # SERVER酱token
       run: | 
         cp CMB.py CMB2.py
@@ -37,7 +37,7 @@ jobs:
         sed -i 's/{{REDIS_PORT}}/$REDIS_PORT/g' CMB2.py
         sed -i 's/{{REDIS_PASSWORD}}/$REDIS_PASSWORD/g' CMB2.py
         sed -i 's/{{SERVERCHAN_TOKEN}}/$SERVERCHAN_TOKEN/g' CMB2.py
-        sed -i 's/{{WXPUSH_TOKEN}}/$WXPUSH_TOKEN/g' CMB2.py
+        sed -i 's/{{WXPUSHER_TOKEN}}/$WXPUSHER_TOKEN/g' CMB2.py
     - name: Run
       run: |
         python CMB2.py
