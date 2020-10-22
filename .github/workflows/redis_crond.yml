@@ -33,11 +33,11 @@ jobs:
         SERVERCHAN_TOKEN: ${{ secrets.SERVERCHAN_TOKEN }} # SERVER酱token
       run: | 
         cp CMB.py CMB2.py
-        sed -i 's/{{REDIS_HOST}}/$REDIS_HOST/g' CMB2.py
-        sed -i 's/{{REDIS_PORT}}/$REDIS_PORT/g' CMB2.py
-        sed -i 's/{{REDIS_PASSWORD}}/$REDIS_PASSWORD/g' CMB2.py
-        sed -i 's/{{SERVERCHAN_TOKEN}}/$SERVERCHAN_TOKEN/g' CMB2.py
-        sed -i 's/{{WXPUSHER_TOKEN}}/$WXPUSHER_TOKEN/g' CMB2.py
+        sed -i "s/{{REDIS_HOST}}/$REDIS_HOST/g" CMB2.py
+        sed -i "s/{{REDIS_PORT}}/$REDIS_PORT/g" CMB2.py
+        sed -i "s/{{REDIS_PASSWORD}}/$REDIS_PASSWORD/g" CMB2.py
+        sed -i "s/{{SERVERCHAN_TOKEN}}/$SERVERCHAN_TOKEN/g" CMB2.py
+        sed -i "s/{{WXPUSHER_TOKEN}}/$WXPUSHER_TOKEN/g" CMB2.py
     - name: Run
       run: |
         python CMB2.py
