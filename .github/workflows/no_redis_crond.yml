@@ -1,0 +1,39 @@
+name: Crond job for CMB without redis
+
+on: 
+  release:
+    types: [published]
+  push:
+    tags:
+    - 'v*'
+  schedule:
+    - cron: '*/5 * * * *'
+  watch:
+    types: [started]
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        pip install requests
+    - name: Load config
+      env: 
+        WXPUSH_TOKEN: ${{ secrets.WXPUSH_TOKEN }} # WXPUSHER的token
+        SERVERCHAN_TOKEN: ${{ secrets.SERVERCHAN_TOKEN }} # SERVER酱token
+      run: | 
+        cp CMB_without_redis.py CMB_without_redis2.py
+        sed -i 's/{{SERVERCHAN_TOKEN}}/$SERVERCHAN_TOKEN/g' CMB_without_redis2.py
+        sed -i 's/{{WXPUSH_TOKEN}}/$WXPUSH_TOKEN/g' CMB_without_redis2.py
+    - name: Run
+      run: |
+        python CMB_without_redis2.py
+    - name: Clean
+      run: |
+        rm -f CMB_without_redis2.py
