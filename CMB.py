@@ -30,6 +30,12 @@ def get_id():
     return int(re.get('CMB_ID'))
 
 
+def set_json(data):
+    re = redis.StrictRedis(connection_pool=pool,decode_responses=True)
+    return re.set('CMB_JSON', data)
+
+
+
 def send_msg_wxpusher(msg):
     if msg == "":
         return
@@ -97,3 +103,5 @@ if WXPUSHER_TOKEN != "":
 
 if SERVERCHAN_TOKEN != "":
     send_msg_serverchan(title, msg)
+
+set_json(json)
