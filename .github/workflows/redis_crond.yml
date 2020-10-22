@@ -1,4 +1,4 @@
-name: Crond job for CMB
+name: Crond job for Redis CMB
 
 on: 
   release:
