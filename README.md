@@ -1,7 +1,11 @@
 # CMB-news
 ![Crond job for Redis CMB](https://github.com/LittleJake/CMB-news/workflows/Crond%20job%20for%20Redis%20CMB/badge.svg)
 ![Crond job for non redis CMB](https://github.com/LittleJake/CMB-news/workflows/Crond%20job%20for%20non%20redis%20CMB/badge.svg)
+
 爬取招商银行-招银汇金财经新闻，调用github workflow定时抓取
+
+## 介绍
+爬取思路：URL重放，服务器不校验时间戳，导致相同时间校验头可无限重放获取最新数据。
 
 ## 说明
 ### Redis版
@@ -40,6 +44,10 @@
 6. 在自己的项目点个Star即可运行Workflow
 
 ## 运行截图
+
+![1](https://cdn.jsdelivr.net/gh/LittleJake/blog-static-files@imgs/imgs/20210614143821.jpg)
+
+![2](https://cdn.jsdelivr.net/gh/LittleJake/blog-static-files@imgs/imgs/20210614143822.jpg)
 
 ## 鸣谢
 [Server酱](http://sc.ftqq.com/)
